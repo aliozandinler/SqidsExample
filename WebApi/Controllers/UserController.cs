@@ -32,27 +32,26 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Route("")]
     public ActionResult<IEnumerable<UserModel>> Get()
     {
         return Ok(_users);
     }
 
     [HttpGet]
-    [Route("{modelId:sqids}")]
-    public ActionResult<UserModel> GetById([FromRoute] [ModelBinder(typeof(SqidsModelBinder))] int? modelId)
+    [Route("{id:sqids}")]
+    public ActionResult<UserModel> GetById([FromRoute] [ModelBinder(typeof(SqidsModelBinder))] int? id)
     {
-        return Ok(_users.SingleOrDefault(c => c.Id == modelId));
+        return Ok(_users.SingleOrDefault(c => c.Id == id));
     }
 
     [HttpGet]
-    [Route("{modelId:sqids}")]
-    public ActionResult<UserModel> GetByNullableId([FromRoute] [ModelBinder(typeof(SqidsModelBinder))] int? modelId)
+    [Route("{id:sqids}")]
+    public ActionResult<UserModel> GetByNullableId([FromRoute] [ModelBinder(typeof(SqidsModelBinder))] int? id)
     {
-        if (modelId == null)
+        if (id == null)
             return BadRequest();
 
-        return Ok(_users.SingleOrDefault(c => c.NullableId == modelId));
+        return Ok(_users.SingleOrDefault(c => c.NullableId == id));
     }
     
     [HttpGet]
